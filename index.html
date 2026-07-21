@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔐 כספת האסטרטגיות v4 — ProfitBot</title>
+<style>
+  :root{--bg:#0d1117;--panel:#161b22;--panel2:#1c2431;--border:#30363d;--orange:#FF9800;--orange-d:#e65100;--txt:#e6edf3;--dim:#8b949e;--green:#00C853;--red:#EF5350;--warn:#FFB300;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--bg);color:var(--txt);padding:12px;padding-bottom:90px;}
+  h1{font-size:1.2rem;color:var(--orange);}
+  .top{border:1px solid var(--border);background:var(--panel);border-radius:12px;padding:14px;margin-bottom:12px;}
+  .sub{color:var(--dim);font-size:.8rem;margin-top:4px;line-height:1.5;}
+  #storeMode{display:inline-block;margin-top:8px;font-size:.75rem;border:1px solid var(--border);border-radius:20px;padding:3px 10px;}
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  button{border:none;border-radius:10px;padding:10px 14px;font-size:.9rem;font-weight:bold;cursor:pointer;font-family:inherit;}
+  .primary{background:linear-gradient(135deg,var(--orange),var(--orange-d));color:#fff;}
+  .ghost{background:var(--panel2);color:var(--txt);border:1px solid var(--border);}
+  .danger{background:#3a1518;color:var(--red);border:1px solid #5c2327;}
+  details{border:1px solid var(--border);border-radius:10px;margin-top:10px;background:var(--panel2);overflow:hidden;}
+  summary{cursor:pointer;padding:11px 12px;font-weight:bold;color:var(--orange);font-size:.9rem;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  summary::-webkit-details-marker{display:none;}
+  summary:after{content:"«";color:var(--dim);transform:rotate(-90deg);transition:.2s;}
+  details[open] summary:after{transform:rotate(90deg);}
+  .body{padding:0 12px 12px;}
+  label{display:block;font-size:.76rem;color:var(--dim);margin:9px 0 3px;}
+  input[type=text],input[type=number],select,textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--txt);padding:9px;font-size:.92rem;font-family:inherit;}
+  textarea{min-height:60px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 10px;}
+  .chk{display:flex;align-items:center;gap:8px;font-size:.84rem;margin-top:9px;}
+  .chk input{width:19px;height:19px;accent-color:var(--orange);flex:none;}
+  .pgroup{border:1px solid #3a2a10;background:#181410;}
+  .pgroup summary{color:#FFC46B;}
+  .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;}
+  .stat{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center;}
+  .stat .lbl{font-size:.64rem;color:var(--dim);display:block;margin-bottom:2px;}
+  .stat .val{font-size:.95rem;font-weight:bold;direction:ltr;display:block;}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .chip{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:.75rem;color:var(--txt);display:inline-flex;gap:5px;align-items:center;}
+  .chip b{color:var(--orange);font-weight:normal;}
+  .chip bdi{font-weight:bold;}
+  .chip.ok{border-color:#1d4d26;color:var(--green);background:#0e2a12;}
+  .chip.no{color:var(--dim);opacity:.75;}
+  .sech{margin-top:14px;font-size:.72rem;color:var(--orange);letter-spacing:.4px;border-bottom:1px solid #2a1e0a;padding-bottom:3px;}
+  .pcard{margin-top:8px;background:var(--bg);border:1px solid #3a2a10;border-radius:10px;padding:8px 10px;}
+  .pcard .pn{color:#FFC46B;font-size:.76rem;display:block;margin-bottom:2px;font-weight:bold;}
+  .card{border:1px solid var(--border);background:var(--panel);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+  .card>details{border:none;margin:0;background:transparent;}
+  .csum{padding:13px 12px;display:flex;flex-direction:column;gap:5px;}
+  .crow1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:bold;font-size:.95rem;}
+  .crow2{font-size:.78rem;color:var(--dim);}
+  .crow2 b{color:var(--green);}
+  .badge{font-size:.7rem;border-radius:20px;padding:2px 9px;border:1px solid var(--border);font-weight:normal;}
+  .b-lock{background:#0e2a12;color:var(--green);border-color:#1d4d26;}
+  .b-test{background:#2a230e;color:var(--warn);border-color:#4d431d;}
+  .b-idea{background:#1a2333;color:#64B5F6;border-color:#2b4066;}
+  .kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:.8rem;}
+  .kv b{color:var(--dim);font-weight:normal;}
+  .pline{margin-top:6px;font-size:.78rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 9px;line-height:1.7;}
+  .pline .pn{color:#FFC46B;}
+  .fp{margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 10px;font-size:.8rem;line-height:1.7;}
+  .fp .t{color:var(--orange);font-size:.73rem;}
+  .checks{margin-top:8px;font-size:.76rem;color:var(--dim);line-height:1.7;}
+  .notes{margin-top:8px;font-size:.79rem;color:var(--dim);white-space:pre-wrap;}
+  .missing{color:var(--warn);}
+  .cardbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+  .cardbtns button{padding:8px 10px;font-size:.78rem;}
+  #formWrap{display:none;border:1px solid var(--orange);background:var(--panel);border-radius:12px;padding:12px;margin-bottom:12px;}
+  #toast{position:fixed;bottom:16px;right:16px;left:16px;background:linear-gradient(135deg,var(--green),#00897B);color:#fff;border-radius:12px;padding:14px;font-weight:bold;text-align:center;display:none;z-index:9;}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>🔐 כספת האסטרטגיות</h1>
+  <div class="sub">בחר אינדיקטורים בחריצים — וקבוצת הפרמטרים המלאה של כל אחד נפתחת אוטומטית, עם הדיפולטים המכוילים של המערכת.</div>
+  <span id="storeMode">בודק אחסון…</span>
+  <div class="btnrow">
+    <button class="primary" onclick="openForm()">＋ אסטרטגיה</button>
+    <button class="ghost" onclick="exportJSON()">⬇️ גיבוי</button>
+    <button class="ghost" onclick="document.getElementById('importFile').click()">⬆️ ייבוא</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+  </div>
+</div>
+
+<div id="formWrap">
+  <h2 id="formTitle" style="color:var(--orange);font-size:1rem;">אסטרטגיה חדשה</h2>
+  <input type="hidden" id="f_id">
+
+  <details open><summary>🏷️ זיהוי</summary><div class="body">
+    <div class="grid2">
+      <div><label>שם</label><input type="text" id="f_name" placeholder="NQ בוקר — CHoCH"></div>
+      <div><label>סטטוס</label><select id="f_status"><option value="lock">🔒 נעול</option><option value="test">🧪 בבדיקה</option><option value="idea">💡 רעיון</option></select></div>
+    </div>
+    <div class="grid3">
+      <div><label>סקריפט</label><select id="f_ver"><option>v4.1</option><option>v4.0</option><option>v3.9</option><option>v3.8</option><option>אחר</option></select></div>
+      <div><label>סימבול</label><select id="f_sym"><option>NQ1!</option><option>MNQ1!</option><option>6E1!</option><option>ES1!</option><option>MES1!</option><option>GC1!</option><option>CL1!</option><option>אחר</option></select></div>
+      <div><label>טיימפריים</label><select id="f_tf"><option>1</option><option>5</option><option value="15" selected>15</option><option>30</option><option>60</option><option>240</option><option>D</option></select></div>
+    </div>
+  </div></details>
+
+  <details open><summary>🎯 אינדיקטורים «</summary><div class="body">
+    <div class="grid3">
+      <div><label>חריץ 1</label><select id="f_i1" class="indsel" onchange="renderParams()"></select></div>
+      <div><label>חריץ 2</label><select id="f_i2" class="indsel" onchange="renderParams()"></select></div>
+      <div><label>חריץ 3</label><select id="f_i3" class="indsel" onchange="renderParams()"></select></div>
+    </div>
+    <div class="grid3">
+      <div><label>מנוע</label><select id="f_eng"><option>🔓 ALPHA</option><option>מקורי (max_dist)</option></select></div>
+      <div><label>עוגן SL/TP</label><select id="f_anchor"><option>סגירת נר האות</option><option>מחיר כניסה</option></select></div>
+      <div><label>מרחק מקס (מקורי)</label><input type="number" id="f_maxd" value="30"></div>
+    </div>
+  </div></details>
+
+  <div id="pparams"></div>
+
+  <details><summary>🕐 שעות «</summary><div class="body">
+    <div class="chk"><input type="checkbox" id="f_s1on" checked><span>סשן מסחר 1</span></div>
+    <div class="grid2">
+      <div><label>מ-</label><select id="f_s1a" class="timesel"></select></div>
+      <div><label>עד</label><select id="f_s1b" class="timesel"></select></div>
+    </div>
+    <div class="chk"><input type="checkbox" id="f_s2on"><span>סשן מסחר 2</span></div>
+    <div class="grid2">
+      <div><label>מ-</label><select id="f_s2a" class="timesel"></select></div>
+      <div><label>עד</label><select id="f_s2b" class="timesel"></select></div>
+    </div>
+    <div class="grid2">
+      <div><label>✅ סגירת פוזיציות</label><select id="f_ct"><option value="">כבוי</option></select></div>
+    </div>
+  </div></details>
+
+  <details><summary>💰 סיכון «</summary><div class="body">
+    <div class="grid3">
+      <div><label>חוזים</label><input type="number" id="f_qty" value="1"></div>
+      <div><label>סטופ (טיקים)</label><input type="number" id="f_stop"></div>
+      <div><label>RR</label><input type="number" step="0.1" id="f_rr"></div>
+    </div>
+    <div class="grid3">
+      <div><label>הפסד יומי $</label><input type="number" id="f_ml"></div>
+      <div><label>רווח יומי $</label><input type="number" id="f_mp"></div>
+      <div><label>עסקאות/יום</label><input type="number" id="f_mt"></div>
+    </div>
+    <div class="chk"><input type="checkbox" id="f_rev"><span>🔁 היפוך בפוזיציה (ALPHA-VOL)</span></div>
+    <div class="chk"><input type="checkbox" id="f_revall"><span>🔄 היפוך עסקאות (שורט ⇆ לונג)</span></div>
+  </div></details>
+
+  <details><summary>🧬 טביעת אצבע לאימות «</summary><div class="body">
+    <div class="grid3">
+      <div><label>PnL $</label><input type="number" id="f_pnl"></div>
+      <div><label>PF</label><input type="number" step="0.001" id="f_pf"></div>
+      <div><label>עסקאות</label><input type="number" id="f_n"></div>
+    </div>
+    <div class="grid3">
+      <div><label>WinRate %</label><input type="number" step="0.01" id="f_wr"></div>
+      <div><label>Max DD $</label><input type="number" id="f_dd"></div>
+      <div><label>טווח</label><input type="text" id="f_range" placeholder="07/25–07/26"></div>
+    </div>
+  </div></details>
+
+  <details><summary>✅ בדיקות והערות «</summary><div class="body">
+    <div class="chk"><input type="checkbox" id="c_bm"><span>Bar Magnifier</span></div>
+    <div class="chk"><input type="checkbox" id="c_3p"><span>3 תקופות זמן נפרדות</span></div>
+    <div class="chk"><input type="checkbox" id="c_nb"><span>רווחית בלי החודש הטוב</span></div>
+    <div class="chk"><input type="checkbox" id="c_mc"><span>מונטה קרלו (DD מול Apex)</span></div>
+    <div class="chk"><input type="checkbox" id="c_cs"><span>עמלות + סליפג'</span></div>
+    <label>הערות</label><textarea id="f_notes"></textarea>
+  </div></details>
+
+  <div class="btnrow">
+    <button class="primary" onclick="saveForm()">💾 שמור בכספת</button>
+    <button class="ghost" onclick="closeForm()">ביטול</button>
+  </div>
+</div>
+
+<div id="list"></div>
+<div id="toast"></div>
+
+<script>
+const KEY = 'profitbot-vault-v1';
+let strategies = [];
+let mode = 'mem';
+const INDS = ["NONE","RSI","Bollinger Bands","VWAP","MACD","STOCH","VOL","RSI DIV","BOS","CHoCH","Keltner","PDH/PDL","Opening Range"];
+const SRC = ["סגירה","פתיחה","גבוה","נמוך","HL2","HLC3","OHLC4","HLCC4"];
+const MSRC = ["פתיל (H/L)"].concat(SRC);
+const nf=(k,l,d,st)=>({k,l,t:'n',d,st});
+const sf=(k,l,o,d)=>({k,l,t:'s',o,d});
+const cf=(k,l,d)=>({k,l,t:'c',d});
+const MSFIELDS=[sf('src','Source',MSRC,'פתיל (H/L)'),nf('pl','Pivot left',3),nf('pr','Right',2),cf('cm','Break by close',true),nf('buf','Buffer (ticks)',0),sf('mode','מצב כניסה',["שבירה","ריטסט","סוויפ","שבירה + סוויפ"],'שבירה + סוויפ'),nf('rwin','חלון ריטסט',20),nf('depth','זיכרון רמות',3)];
+const PSCHEMA = {
+ "RSI":[sf('src','Source',SRC,'סגירה'),nf('len','Length',7),nf('ob','OverBought',34),nf('os','OverSold',40)],
+ "Bollinger Bands":[sf('src','Source',SRC,'סגירה'),nf('len','Length',10),nf('std','StDev',1.0,0.1),cf('cm','Close above/below',false)],
+ "VWAP":[sf('src','Source',SRC,'פתיחה'),sf('anc','Anchor',["1 יום","1 שעה"],'1 יום'),nf('mul','StDev Mul',1.0,0.1),cf('cm','Close above/below',false)],
+ "MACD":[sf('src','Source',SRC,'סגירה'),nf('fast','Fast',12),nf('slow','Slow',26),nf('sig','Signal',9)],
+ "STOCH":[nf('kl','K Length',6),nf('ks','K Smooth',1),nf('ds','D Smooth',3),sf('line','Line',["K","D"],'K'),nf('hi','Upper',80),nf('lo','Lower',35)],
+ "VOL":[nf('len','MA Length',20)],
+ "RSI DIV":[sf('src','Source',SRC,'סגירה'),nf('len','Length',14),nf('pl','Pivot',5),nf('mn','Min',5),nf('mx','Max',60)],
+ "BOS":MSFIELDS,
+ "CHoCH":MSFIELDS,
+ "Keltner":[sf('src','Source',SRC,'סגירה'),nf('ema','EMA Length',10),nf('atr','ATR Length',10),nf('mul','ATR Mult',1.0,0.1),cf('cm','Close above/below',false)],
+ "PDH/PDL":[sf('lvl','רמות',["יום קודם","סשן קודם"],'יום קודם'),sf('mode','מצב',["נגיעה","סוויפ"],'נגיעה'),nf('zone','אזור (ticks)',15),nf('buf','Buffer סוויפ',0)],
+ "Opening Range":[nf('bars','נרות טווח',1),sf('mode','מצב',["פייד (נגד)","פריצה (עם)"],'פייד (נגד)'),nf('zone','אזור (ticks)',10),nf('buf','Buffer (ticks)',0)]
+};
+const CHECKS = [['bm','Bar Magnifier'],['p3','3 תקופות'],['nb','בלי החודש הטוב'],['mc','מונטה קרלו'],['cs','עמלות+סליפג׳']];
+
+const SEED = [
+ {id:'seed6e', name:'6E לילה — יציאת שעון', status:'lock', ver:'v3.8', sym:'6E1!', tf:'15',
+  i1:'להשלים ⚠️', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:4, stop:null, rr:null, ml:800, mp:800, mt:null, rev:true, revall:false,
+  s1:'0045-0400', s2:'', ct:'04:00', params:{},
+  notes:'⚠️ להשלים: אינדיקטורים + סטופ/RR. ידוע: 0/253 יציאות SL/TP — חיה על יציאת ⏰. ברוטו. בלי מרץ: PF 1.65. H1 1.21/H2 3.20. גודל ל-50K: qty 2. עמלות מוערכות: ~$4,050-.',
+  pnl:21425, pf:1.998, n:253, wr:57.3, dd:2775, range:'07/25–07/26',
+  checks:{bm:false, p3:false, nb:true, mc:true, cs:false}, created:Date.now(), updated:Date.now()},
+ {id:'seednq', name:'NQ בוקר — CHoCH', status:'lock', ver:'v4.1', sym:'NQ1!', tf:'15',
+  i1:'CHoCH', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:1, stop:70, rr:1.1, ml:270, mp:850, mt:null, rev:true, revall:false,
+  s1:'0445-0800', s2:'', ct:'',
+  params:{"CHoCH":{src:'פתיל (H/L)',pl:3,pr:2,cm:true,buf:0,mode:'שבירה + סוויפ',rwin:20,depth:3}},
+  notes:'⚠️ לאמת פרמטרי CHoCH והסשן מול TradingView (מולאו דיפולטים). שער 270$<סיכון עסקה ← "הפסד אחד ליום", יום גרוע עד ~565$-. עם מגניפייר (בלי: 15,895/1.49). 81% יציאות 🎯. NQ מלא פסול ל-50K — 4-5 MNQ. קורלציה מול 6E: 0.007-.',
+  pnl:13010, pf:1.388, n:242, wr:55.79, dd:2605, range:'07/25–07/26',
+  checks:{bm:true, p3:true, nb:true, mc:true, cs:false}, created:Date.now(), updated:Date.now()}
+];
+
+async function storeLoad(){
+  if (typeof window.storage !== 'undefined' && window.storage) {
+    mode='cloud';
+    try { const r = await window.storage.get(KEY); return r ? JSON.parse(r.value) : null; } catch(e){ return null; }
+  }
+  try { if (typeof localStorage !== 'undefined') { mode='browser'; const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; } } catch(e){}
+  mode='mem'; return null;
+}
+async function storeSave(){
+  const data = JSON.stringify(strategies);
+  if (mode==='cloud') { try { await window.storage.set(KEY, data); return true; } catch(e){ return false; } }
+  if (mode==='browser') { try { localStorage.setItem(KEY, data); return true; } catch(e){ return false; } }
+  return false;
+}
+function modeLabel(){
+  const el = document.getElementById('storeMode');
+  if (mode==='cloud'){ el.textContent='☁️ נשמר אוטומטית בקלוד'; el.style.color='var(--green)'; }
+  else if (mode==='browser'){ el.textContent='💾 נשמר בדפדפן הזה'; el.style.color='var(--green)'; }
+  else { el.textContent='⚠️ זיכרון בלבד — ייצא גיבוי!'; el.style.color='var(--warn)'; }
+}
+function toast(msg, warn){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.display='block';
+  t.style.background = warn ? 'linear-gradient(135deg,#FFB300,#e65100)' : 'linear-gradient(135deg,var(--green),#00897B)';
+  setTimeout(()=>t.style.display='none', 2600);
+}
+function esc(x){ return String(x??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmt(x){ return (x===null||x===undefined||x==='')?'—':Number(x).toLocaleString(); }
+function fmtSess(s){ if(!s) return ''; const m=String(s).match(/^(\d{2})(\d{2})-(\d{2})(\d{2})$/); return m? m[1]+':'+m[2]+'–'+m[3]+':'+m[4] : s; }
+const pid=(ind,k)=>'pf_'+INDS.indexOf(ind)+'_'+k;
+
+function buildSelectors(){
+  const opts=[];
+  for(let m=0;m<24*60;m+=15){
+    const h=String(Math.floor(m/60)).padStart(2,'0'), mm=String(m%60).padStart(2,'0');
+    opts.push('<option value="'+h+mm+'">'+h+':'+mm+'</option>');
+  }
+  document.querySelectorAll('.timesel').forEach(s=>s.innerHTML=opts.join(''));
+  const ct=document.getElementById('f_ct');
+  for(let h=0;h<24;h++){ const hh=String(h).padStart(2,'0'); ct.innerHTML+='<option>'+hh+':00</option>'; }
+  const iopts = INDS.map(x=>'<option>'+x+'</option>').join('');
+  document.querySelectorAll('.indsel').forEach(s=>s.innerHTML=iopts);
+}
+
+// ─── קבוצות פרמטרים דינמיות ───
+function selectedInds(){
+  return [...new Set(['f_i1','f_i2','f_i3'].map(id=>document.getElementById(id).value).filter(x=>x && x!=='NONE' && PSCHEMA[x]))];
+}
+function renderParams(vals){
+  const box=document.getElementById('pparams');
+  const cur = vals || collectParams(); // שמירת ערכים קיימים בהחלפת חריץ
+  box.innerHTML='';
+  for(const ind of selectedInds()){
+    const v = (cur && cur[ind]) || {};
+    let html='';
+    for(const f of PSCHEMA[ind]){
+      const val = v[f.k] !== undefined ? v[f.k] : f.d;
+      const id = pid(ind,f.k);
+      if(f.t==='n') html+='<div><label>'+esc(f.l)+'</label><input type="number" '+(f.st?'step="'+f.st+'"':'')+' id="'+id+'" value="'+esc(val)+'"></div>';
+      else if(f.t==='s') html+='<div><label>'+esc(f.l)+'</label><select id="'+id+'">'+f.o.map(o=>'<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>').join('')+'</select></div>';
+      else html+='<div class="chk" style="grid-column:1/-1"><input type="checkbox" id="'+id+'"'+(val?' checked':'')+'><span>'+esc(f.l)+'</span></div>';
+    }
+    const d=document.createElement('details'); d.open=true; d.className='pgroup';
+    d.innerHTML='<summary>[ '+esc(ind)+' ]</summary><div class="body grid3">'+html+'</div>';
+    box.appendChild(d);
+  }
+}
+function collectParams(){
+  const out={};
+  for(const ind of selectedInds()){
+    const o={};
+    for(const f of PSCHEMA[ind]){
+      const el=document.getElementById(pid(ind,f.k));
+      if(!el) return null; // עוד לא רונדר
+      o[f.k] = f.t==='c' ? el.checked : f.t==='n' ? (el.value===''?null:Number(el.value)) : el.value;
+    }
+    out[ind]=o;
+  }
+  return out;
+}
+function paramLine(ind, o){
+  if(!o) return '';
+  return PSCHEMA[ind].map(f=>{
+    const v=o[f.k];
+    if(f.t==='c') return v ? f.l : null;
+    return f.l+' '+(v??'—');
+  }).filter(Boolean).join(' · ');
+}
+
+// ─── רשימה ───
+function chip(label, val, cls){
+  if(val===null||val===undefined||val===''||val==='—') return '';
+  return '<span class="chip'+(cls?' '+cls:'')+'">'+(label?'<b>'+esc(label)+'</b>':'')+'<bdi>'+esc(val)+'</bdi></span>';
+}
+function stat(label, val, color){
+  return '<div class="stat"><span class="lbl">'+esc(label)+'</span><span class="val"'+(color?' style="color:'+color+'"':'')+'>'+esc(val)+'</span></div>';
+}
+function paramChips(ind, o){
+  if(!o) return '';
+  return PSCHEMA[ind].map(f=>{
+    const v=o[f.k];
+    if(f.t==='c') return v ? '<span class="chip ok"><bdi>'+esc(f.l)+'</bdi></span>' : '';
+    if(v===null||v===undefined||v==='') return '';
+    return chip(f.l, v);
+  }).join('');
+}
+function render(){
+  const L=document.getElementById('list'); L.innerHTML='';
+  if(!strategies.length){ L.innerHTML='<div class="card"><div class="csum"><div class="crow2">הכספת ריקה.</div></div></div>'; return; }
+  for(const s of strategies){
+    const badge = s.status==='lock' ? '<span class="badge b-lock">🔒 נעול</span>' : s.status==='test' ? '<span class="badge b-test">🧪 בבדיקה</span>' : '<span class="badge b-idea">💡 רעיון</span>';
+    const miss = (String(s.i1||'')+String(s.notes||'')).includes('להשלים')||(String(s.notes||'')).includes('לאמת');
+    const inds = [s.i1,s.i2,s.i3].filter(x=>x&&x!=='NONE').join(' + ')||'—';
+    let plines='';
+    if(s.params) for(const [ind,o] of Object.entries(s.params)){
+      plines+='<div class="pcard"><span class="pn">[ '+esc(ind)+' ]</span><div class="chips">'+paramChips(ind,o)+'</div></div>';
+    }
+    const checksHtml = CHECKS.map(([k,t])=>'<span class="chip '+(s.checks&&s.checks[k]?'ok':'no')+'"><bdi>'+(s.checks&&s.checks[k]?'✅':'⬜')+' '+esc(t)+'</bdi></span>').join('');
+    const revChips = (s.rev?chip('','🔁 היפוך בפוזיציה','ok'):'') + (s.revall?chip('','🔄 היפוך עסקאות','ok'):'');
+    const d = document.createElement('div'); d.className='card';
+    d.innerHTML = `<details>
+      <summary class="csum">
+        <div class="crow1">${esc(s.name)} ${badge}${miss?' <span class="badge" style="color:var(--warn)">⚠️ להשלים</span>':''}</div>
+        <div class="crow2"><bdi>${esc(s.sym)}</bdi> · ${esc(inds)} · PF <b><bdi>${s.pf??'—'}</bdi></b> · <b><bdi>$${fmt(s.pnl)}</bdi></b></div>
+      </summary>
+      <div class="body">
+        <div class="sech">🧬 טביעת אצבע — הבקטסט חייב להחזיר בדיוק</div>
+        <div class="statgrid">
+          ${stat('PnL','$'+fmt(s.pnl),'var(--green)')}
+          ${stat('Profit Factor', s.pf??'—')}
+          ${stat('עסקאות', s.n??'—')}
+          ${stat('WinRate', (s.wr??'—')+'%')}
+          ${stat('Max DD','$'+fmt(s.dd),'var(--red)')}
+          ${stat('טווח', s.range||'—')}
+        </div>
+        <div class="sech">🎯 מנוע</div>
+        <div class="chips">
+          ${chip('סקריפט', s.ver+' · '+s.tf+'m')}
+          ${chip('מנוע', s.eng)}
+          ${chip('חריצים', inds)}
+          ${chip('עוגן', s.anchor)}
+        </div>
+        ${plines}
+        <div class="sech">💰 סיכון</div>
+        <div class="chips">
+          ${chip('qty', s.qty)}
+          ${chip('סטופ', (s.stop??'—')+'t')}
+          ${chip('RR', s.rr)}
+          ${chip('שערים', (s.ml??'—')+' / '+(s.mp??'—')+'$')}
+          ${chip('מקס/יום', s.mt)}
+          ${revChips}
+        </div>
+        <div class="sech">🕐 שעות</div>
+        <div class="chips">
+          ${chip('סשן 1', fmtSess(s.s1)||'—')}
+          ${s.s2?chip('סשן 2', fmtSess(s.s2)):''}
+          ${chip('סגירה', s.ct||'כבוי')}
+        </div>
+        <div class="sech">✅ בדיקות</div>
+        <div class="chips">${checksHtml}</div>
+        ${s.notes?`<div class="notes${miss?' missing':''}">📝 ${esc(s.notes)}</div>`:''}
+        <div class="cardbtns">
+          <button class="ghost" onclick="editS('${s.id}')">✏️ ערוך</button>
+          <button class="ghost" onclick="dupS('${s.id}')">📄 שכפל</button>
+          <button class="ghost" onclick="copyS('${s.id}')">🤖 העתק לקלוד</button>
+          <button class="danger" onclick="delS('${s.id}')">🗑️</button>
+        </div>
+      </div>
+    </details>`;
+    L.appendChild(d);
+  }
+}
+
+// ─── טופס ───
+function setSess(prefix, str, onId){
+  document.getElementById(onId).checked = !!str;
+  const m = String(str||'').match(/^(\d{4})-(\d{4})$/);
+  if(m){ document.getElementById(prefix+'a').value=m[1]; document.getElementById(prefix+'b').value=m[2]; }
+}
+function getSess(prefix, onId){
+  if(!document.getElementById(onId).checked) return '';
+  return document.getElementById(prefix+'a').value + '-' + document.getElementById(prefix+'b').value;
+}
+function openForm(s){
+  document.getElementById('formWrap').style.display='block';
+  document.getElementById('formTitle').textContent = s ? 'עריכת: '+s.name : 'אסטרטגיה חדשה';
+  const g=id=>document.getElementById(id);
+  const setSel=(id,v)=>{ const el=g(id); if(v && ![...el.options].some(o=>o.value===v||o.text===v)){ el.add(new Option(v,v)); } if(v) el.value=v; };
+  g('f_id').value = s?s.id:'';
+  g('f_name').value=s?.name||''; g('f_status').value=s?.status||'test';
+  setSel('f_ver',s?.ver||'v4.1'); setSel('f_sym',s?.sym||'NQ1!'); setSel('f_tf',s?.tf||'15');
+  setSel('f_i1',s?.i1||'NONE'); setSel('f_i2',s?.i2||'NONE'); setSel('f_i3',s?.i3||'NONE');
+  setSel('f_eng',s?.eng||'🔓 ALPHA'); g('f_anchor').value=s?.anchor||'סגירת נר האות'; g('f_maxd').value=s?.maxd??30;
+  g('f_qty').value=s?.qty??1; g('f_stop').value=s?.stop??''; g('f_rr').value=s?.rr??'';
+  g('f_ml').value=s?.ml??''; g('f_mp').value=s?.mp??''; g('f_mt').value=s?.mt??'';
+  g('f_rev').checked=!!s?.rev; g('f_revall').checked=!!s?.revall;
+  setSess('f_s1', s?.s1||'0045-0400', 'f_s1on'); setSess('f_s2', s?.s2||'', 'f_s2on');
+  g('f_ct').value=s?.ct||'';
+  g('f_notes').value=s?.notes||'';
+  g('f_pnl').value=s?.pnl??''; g('f_pf').value=s?.pf??''; g('f_n').value=s?.n??'';
+  g('f_wr').value=s?.wr??''; g('f_dd').value=s?.dd??''; g('f_range').value=s?.range||'';
+  g('c_bm').checked=!!s?.checks?.bm; g('c_3p').checked=!!s?.checks?.p3; g('c_nb').checked=!!s?.checks?.nb;
+  g('c_mc').checked=!!s?.checks?.mc; g('c_cs').checked=!!s?.checks?.cs;
+  renderParams(s?.params||{});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function closeForm(){ document.getElementById('formWrap').style.display='none'; }
+const num = v => v===''?null:Number(v);
+async function saveForm(){
+  const g=id=>document.getElementById(id);
+  if(!g('f_name').value.trim()){ toast('חסר שם', true); return; }
+  const id = g('f_id').value || 's'+Date.now();
+  const obj = { id, name:g('f_name').value.trim(), status:g('f_status').value,
+    ver:g('f_ver').value, sym:g('f_sym').value, tf:g('f_tf').value,
+    i1:g('f_i1').value, i2:g('f_i2').value, i3:g('f_i3').value,
+    eng:g('f_eng').value, anchor:g('f_anchor').value, maxd:num(g('f_maxd').value),
+    qty:num(g('f_qty').value), stop:num(g('f_stop').value), rr:num(g('f_rr').value),
+    ml:num(g('f_ml').value), mp:num(g('f_mp').value), mt:num(g('f_mt').value),
+    rev:g('f_rev').checked, revall:g('f_revall').checked,
+    s1:getSess('f_s1','f_s1on'), s2:getSess('f_s2','f_s2on'), ct:g('f_ct').value,
+    params:collectParams()||{}, notes:g('f_notes').value,
+    pnl:num(g('f_pnl').value), pf:num(g('f_pf').value), n:num(g('f_n').value),
+    wr:num(g('f_wr').value), dd:num(g('f_dd').value), range:g('f_range').value,
+    checks:{bm:g('c_bm').checked, p3:g('c_3p').checked, nb:g('c_nb').checked, mc:g('c_mc').checked, cs:g('c_cs').checked},
+    updated:Date.now() };
+  const i = strategies.findIndex(x=>x.id===id);
+  if(i>=0){ obj.created = strategies[i].created; strategies[i]=obj; } else { obj.created=Date.now(); strategies.unshift(obj); }
+  const ok = await storeSave();
+  render(); closeForm();
+  toast(ok ? '✅ נשמר בכספת' : '⚠️ נשמר בזיכרון בלבד — ייצא גיבוי!', !ok);
+}
+function editS(id){ const s=strategies.find(x=>x.id===id); if(s) openForm(s); }
+async function dupS(id){ const s=strategies.find(x=>x.id===id); if(!s) return;
+  const c=JSON.parse(JSON.stringify(s)); c.id='s'+Date.now(); c.name=s.name+' (עותק)'; c.status='idea'; c.created=Date.now(); c.updated=Date.now();
+  strategies.unshift(c); await storeSave(); render(); toast('שוכפל כ-💡 רעיון'); }
+async function delS(id){ const s=strategies.find(x=>x.id===id); if(!s) return;
+  if(s.status==='lock' && !confirm('זו אסטרטגיה 🔒 נעולה! למחוק בכל זאת?')) return;
+  if(!confirm('למחוק את "'+s.name+'"? אין ביטול.')) return;
+  strategies = strategies.filter(x=>x.id!==id); await storeSave(); render(); toast('נמחק'); }
+function copyS(id){
+  const s=strategies.find(x=>x.id===id); if(!s) return;
+  const chk = CHECKS.map(([k,t])=> (s.checks&&s.checks[k]?'✅':'⬜')+t).join(' ');
+  let plines='';
+  if(s.params) for(const [ind,o] of Object.entries(s.params)) plines += '\n[ '+ind+' ] '+paramLine(ind,o);
+  const txt =
+`📋 תעודת אסטרטגיה — ${s.name}
+סטטוס: ${s.status==='lock'?'🔒 נעול':s.status==='test'?'🧪 בבדיקה':'💡 רעיון'} | סקריפט ${s.ver} | ${s.sym} ${s.tf}m
+חריצים: ${[s.i1,s.i2,s.i3].filter(x=>x&&x!=='NONE').join(' + ')||'—'} | ${s.eng} | עוגן: ${s.anchor}${plines}
+סיכון: qty ${s.qty} | סטופ ${s.stop}t | RR ${s.rr} | שערים ${s.ml}/${s.mp}$ | מקס/יום ${s.mt??'—'} | היפוך בפוזיציה: ${s.rev?'כן':'לא'} | היפוך עסקאות: ${s.revall?'כן':'לא'}
+שעות: ${fmtSess(s.s1)||'—'}${s.s2?' + '+fmtSess(s.s2):''} | סגירה ${s.ct||'כבויה'}
+🧬 טביעת אצבע: PnL $${fmt(s.pnl)} | PF ${s.pf} | ${s.n} עסקאות | WR ${s.wr}% | MaxDD $${fmt(s.dd)} | ${s.range}
+בדיקות: ${chk}
+הערות: ${s.notes||'—'}`;
+  if(navigator.clipboard){ navigator.clipboard.writeText(txt).catch(()=>fb(txt)); } else fb(txt);
+  toast('📋 הועתק — הדבק בשיחה עם קלוד');
+  function fb(t){ const ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); }
+}
+function exportJSON(){
+  const blob = new Blob([JSON.stringify({exported:new Date().toISOString(), strategies}, null, 2)], {type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='profitbot_vault_'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+  toast('⬇️ קובץ הגיבוי ירד');
+}
+async function importJSON(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  try{
+    const data = JSON.parse(await f.text());
+    const arr = data.strategies || data;
+    if(!Array.isArray(arr)) throw 0;
+    let added=0;
+    for(const s of arr){ if(!strategies.find(x=>x.id===s.id)){ strategies.push(s); added++; } }
+    await storeSave(); render(); toast('⬆️ יובאו '+added+' אסטרטגיות');
+  }catch(e){ toast('קובץ לא תקין', true); }
+  ev.target.value='';
+}
+
+(async function init(){
+  buildSelectors();
+  const loaded = await storeLoad();
+  modeLabel();
+  if(loaded && loaded.length){ strategies = loaded; }
+  else { strategies = SEED; await storeSave(); }
+  render();
+})();
+</script>
+</body>
+</html>
