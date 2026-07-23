@@ -219,7 +219,23 @@ const SEED = [
   params:{"CHoCH":{src:'פתיל (H/L)',pl:3,pr:2,cm:true,buf:0,mode:'שבירה + סוויפ',rwin:20,depth:3}},
   notes:'⚠️ לאמת פרמטרי CHoCH והסשן מול TradingView (מולאו דיפולטים). שער 270$<סיכון עסקה ← "הפסד אחד ליום", יום גרוע עד ~565$-. עם מגניפייר (בלי: 15,895/1.49). 81% יציאות 🎯. NQ מלא פסול ל-50K — 4-5 MNQ. קורלציה מול 6E: 0.007-.',
   pnl:13010, pf:1.388, n:242, wr:55.79, dd:2605, range:'07/25–07/26',
-  checks:{bm:true, p3:true, nb:true, mc:true, cs:false}, created:Date.now(), updated:Date.now()}
+  checks:{bm:true, p3:true, nb:true, mc:true, cs:false}, created:Date.now(), updated:Date.now()},
+ {id:'seedrsi7a', name:'RSI-7 קצה-בוקר — 6E · A (RR 0.4)', status:'lock', ver:'v4.3', sym:'6E1!', tf:'15',
+  i1:'RSI', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:4, stop:44, rr:0.4, ml:400, mp:800, mt:1, rev:true, revall:false,
+  s1:'0800-1030', s2:'', ct:'',
+  params:{"RSI":{src:'סגירה',len:7,ob:65,os:35}},
+  notes:'🔒 ננעל 23.07.2026 · סקריפט ProfitBot Full + ALPHA v4.3 · צ׳ארט CME:6E1! · שעות Asia/Jerusalem.\nכיול: 222/224 התאמה מלאה (כניסה+יציאה+PnL) ספט׳2025–יולי2026 מול ייצוא #10 (חריגות: 01-16 זמן-יציאה, 01-28 שורת ייצוא פגומה).\nהיסטוריה מלאה TV 2007–2026 (7,816 עס׳): PF 1.207 · WR 60.6% · ברוטו $11.05/עס׳/חוזה.\n16.5 חו׳ מאומת: ברוטו $15.62/חוזה → נטו-B $6.93 → נטו-C $2.35 · יציאות לימיט 53%.\nסיכונים: ריכוזיות Q4-25 ~95% מהנטו · 3/7 רבעונים שליליים · MC Apex 50K qty1 12% פיצוץ/שנה · qty4 PA בודד 53% פיצוץ לפני משיכה (EV +$1.2–1.4K/ניסיון).\nשערי הפעלה: (1) מדידת סליפג׳ paper שבועיים qty1 בצנרת TV←TradersPost←Tradovate — כל הנטו כאן מניח חצי-טיק (הנחה, לא מדידה). (2) qty4 = מודל-כרטיסים מוצהר או פיזור 1×4 PA. (3) הרבעון הנוכחי שלילי (-$1,371 נטו-B) — שקול התניית התחלה בשיא-הון. (4) לאמת כלל עקביות Apex.',
+  pnl:null, pf:1.207, n:7816, wr:60.6, dd:null, range:'2007–2026',
+  checks:{bm:false, p3:false, nb:false, mc:true, cs:false}, created:Date.now(), updated:Date.now()},
+ {id:'seedrsi7b', name:'RSI-7 קצה-בוקר — 6E · B (RR 1.0)', status:'test', ver:'v4.3', sym:'6E1!', tf:'15',
+  i1:'RSI', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:4, stop:44, rr:1.0, ml:400, mp:800, mt:1, rev:true, revall:false,
+  s1:'0800-1030', s2:'', ct:'',
+  params:{"RSI":{src:'סגירה',len:7,ob:65,os:35}},
+  notes:'🧪 מכוילת בסימולטור, ממתינה להיסטוריה מלאה. זהה ל-A פרט ל-RR=1.0 (TP 44 טיק).\nסימולטור 10.8 חו׳ (אותה קליפה): ברוטו $31,750 מול $22,000 של A · נטו-B $22,594 · נטו-C $17,144 · DD דומה · יציאות לימיט 7% בלבד — היתרון שורד סליפג׳ כפול.\nתנאי נעילה מלאה: ריצת TV על כל ההיסטוריה + ייצוא רשימת עסקאות → אימות 1:1 → אם היתרון על A נשמר גם שם, B הופכת לראשית.\nכלל ההקפאה: כל שינוי בהגדרות = וריאנטה חדשה + אימות מחדש.',
+  pnl:31750, pf:null, n:null, wr:null, dd:null, range:'10.8 חו׳ סים',
+  checks:{bm:false, p3:false, nb:false, mc:false, cs:false}, created:Date.now(), updated:Date.now()}
 ];
 
 async function storeLoad(){
