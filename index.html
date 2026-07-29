@@ -205,13 +205,14 @@ const PSCHEMA = {
 const CHECKS = [['bm','Bar Magnifier'],['p3','3 תקופות'],['nb','בלי החודש הטוב'],['mc','מונטה קרלו'],['cs','עמלות+סליפג׳']];
 
 const SEED = [
- {id:'seed6e', name:'6E לילה — יציאת שעון', status:'lock', ver:'v3.8', sym:'6E1!', tf:'15',
-  i1:'להשלים ⚠️', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
-  qty:4, stop:null, rr:null, ml:800, mp:800, mt:null, rev:true, revall:false,
-  s1:'0045-0400', s2:'', ct:'04:00', params:{},
-  notes:'⚠️ להשלים: אינדיקטורים + סטופ/RR. ידוע: 0/253 יציאות SL/TP — חיה על יציאת ⏰. ברוטו. בלי מרץ: PF 1.65. H1 1.21/H2 3.20. גודל ל-50K: qty 2. עמלות מוערכות: ~$4,050-.',
-  pnl:21425, pf:1.998, n:253, wr:57.3, dd:2775, range:'07/25–07/26',
-  checks:{bm:false, p3:false, nb:true, mc:true, cs:false}, created:Date.now(), updated:Date.now()},
+ {id:'seed6e', name:'6E לילה — CHoCH', status:'test', ver:'v4.6.1', sym:'6E1!', tf:'15',
+  i1:'CHoCH', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:4, stop:10, rr:1, ml:400, mp:800, mt:100, rev:true, revall:false,
+  s1:'0045-0400', s2:'', ct:'04:30',
+  params:{"CHoCH":{src:'פתיל (H/L)',pl:3,pr:2,cm:true,buf:0,mode:'שבירה + סוויפ',rwin:20,depth:3}},
+  notes:'📷 עודכן מצילומי הגדרות חיים (30.07.2026) — ProfitBot Full + ALPHA v4.6.1 · צ׳ארט 6E · 15m · שעות Asia/Jerusalem.\nמנוע: 🔓 ALPHA (לפי חריצים) + 🔁 היפוך בפוזיציה ALPHA-VOL פעיל. חריץ 1: CHoCH — מקור פתיל (H/L), Pivot left 3 / ימין 2, Break by close פעיל, Buffer 0t, מצב כניסה שבירה + סוויפ, חלון ריטסט 20 נרות, זיכרון רמות 3. עוגן SL/TP: סגירת נר האות. היפוך עסקאות (שורט⇆לונג) כבוי.\nסיכון: 4 חוזים · סטופ 10 ticks · RR 1.0 (TP 10t) · שער הפסד יומי $400 · שער רווח יומי $800 · מקס 100 עסקאות/יום.\nשעות: סשן 1 00:45–04:00 · סגירת פוזיציות 04:30 · סשן 2 כבוי.\nמגנים: אין כניסה 0 דק׳ לפני סגירה · צינון אחרי הפסד 0 נרות · שער תקציב-סיכון כבוי · תוויות כניסה על הצ׳ארט פעיל.\nTradersPost: Action לסגירה = exit · Ticker ריק (טיקר הצ׳ארט).\nמודולים נוספים בפאנל (דיפולט, לא בחריץ): STOCH D-smooth 3 קו K רצועות 35/80; BOS מקור פתיל Pivot 3/2; Keltner EMA10/ATR10; PDH/PDL יום קודם נגיעה אזור 15t; Opening Range פייד bars 2 אזור 10t Buffer 5t; DRIFT חלון 17:00–00:44 סף 20t; [RSI] מקור סגירה אורך 7 OB34/OS40.\n🧬 בקטסט TV (365 ימים אחרונים ~07/25–07/26, 204 עס׳): PnL +$18,375 (+183.75%) · PF 1.829 · WR 56.37% (115/204) · Max DD $3,800 (29.29%) · תמורה צפויה $90.07/עס׳ · רווח בודד גדול $1,500 · ~6 נרות/עס׳ · ביצועי-יתר +206% מקנייה-והחזקה.\n⚠️ סטופ 10t צפוף — לוודא עמידות מול סליפג׳/עמלות. עדיין להריץ: Bar Magnifier · 3 תקופות · מונטה-קרלו מול Apex · עמלות+סליפג׳.',
+  pnl:18375, pf:1.829, n:204, wr:56.37, dd:3800, range:'07/25–07/26',
+  checks:{bm:false, p3:false, nb:false, mc:false, cs:false}, created:Date.now(), updated:Date.now()},
  {id:'seednq', name:'NQ בוקר — CHoCH', status:'lock', ver:'v4.1', sym:'NQ1!', tf:'15',
   i1:'CHoCH', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
   qty:1, stop:70, rr:1.1, ml:270, mp:850, mt:null, rev:true, revall:false,
