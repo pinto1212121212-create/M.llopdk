@@ -235,6 +235,14 @@ const SEED = [
   params:{"RSI":{src:'סגירה',len:7,ob:65,os:35}},
   notes:'🧪 מכוילת בסימולטור, ממתינה להיסטוריה מלאה. זהה ל-A פרט ל-RR=1.0 (TP 44 טיק).\nסימולטור 10.8 חו׳ (אותה קליפה): ברוטו $31,750 מול $22,000 של A · נטו-B $22,594 · נטו-C $17,144 · DD דומה · יציאות לימיט 7% בלבד — היתרון שורד סליפג׳ כפול.\nתנאי נעילה מלאה: ריצת TV על כל ההיסטוריה + ייצוא רשימת עסקאות → אימות 1:1 → אם היתרון על A נשמר גם שם, B הופכת לראשית.\nכלל ההקפאה: כל שינוי בהגדרות = וריאנטה חדשה + אימות מחדש.',
   pnl:31750, pf:null, n:null, wr:null, dd:null, range:'10.8 חו׳ סים',
+  checks:{bm:false, p3:false, nb:false, mc:false, cs:false}, created:Date.now(), updated:Date.now()},
+ {id:'seedor6e', name:'6E — Opening Range פייד (US בוקר)', status:'test', ver:'v4.6.1', sym:'6E1!', tf:'15',
+  i1:'Opening Range', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:4, stop:39, rr:0.45, ml:800, mp:450, mt:4, rev:false, revall:true,
+  s1:'1630-2000', s2:'', ct:'20:00',
+  params:{"Opening Range":{bars:2, mode:'פייד (נגד)', zone:10, buf:2}},
+  notes:'📷 הוזן מצילומי הגדרות חיים — ProfitBot Full + ALPHA v4.6.1 · צ׳ארט 6E · 15m · שעות Asia/Jerusalem.\nמנוע: Opening Range במצב פייד (נגד) — נרות טווח 2, אזור 10 ticks, Buffer 2 ticks. עוגן SL/TP: סגירת נר האות. 🔄 היפוך עסקאות (שורט⇆לונג) פעיל.\nסיכון: 4 חוזים · סטופ 39 ticks · RR 0.45 (TP ~17.5t) · שער הפסד יומי $800 · שער רווח יומי $450 · מקס 4 עסקאות/יום.\nשעות: סשן 1 16:30–20:00 · סגירת פוזיציות 20:00 · סשן 2 כבוי.\nמגנים: אין כניסה 16 דק׳ לפני סגירה · צינון אחרי הפסד 0 נרות · שער תקציב-סיכון כבוי · תוויות כניסה על הצ׳ארט פעיל.\nמודולים נוספים בפאנל (דיפולט, לא בחריץ): DRIFT חלון 17:00–00:44 סף 20t "עם הדריפט"; MOM סף 30t "עם פריצה"; SMT מול CME_MINI:ES1! Pivot 3/2; Keltner EMA10/ATR10; PDH/PDL יום קודם נגיעה אזור 15t.\n⚠️ להשלים: טביעת אצבע מבקטסט (PnL/PF/עסקאות/WR/DD/טווח) + בדיקות אימות. לאמת כיוון סשן 1 (16:30→20:00) מול TradingView.',
+  pnl:null, pf:null, n:null, wr:null, dd:null, range:'',
   checks:{bm:false, p3:false, nb:false, mc:false, cs:false}, created:Date.now(), updated:Date.now()}
 ];
 
