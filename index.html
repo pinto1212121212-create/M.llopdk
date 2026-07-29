@@ -535,7 +535,13 @@ async function importJSON(ev){
   buildSelectors();
   const loaded = await storeLoad();
   modeLabel();
-  if(loaded && loaded.length){ strategies = loaded; }
+  if(loaded && loaded.length){
+    strategies = loaded;
+    // מיזוג כרטיסי SEED חדשים שעדיין לא בכספת (לפי id) — כדי שעדכונים יופיעו גם בכספת קיימת
+    let added=0;
+    for(const s of SEED){ if(!strategies.some(x=>x.id===s.id)){ strategies.unshift(s); added++; } }
+    if(added){ await storeSave(); }
+  }
   else { strategies = SEED; await storeSave(); }
   render();
 })();
