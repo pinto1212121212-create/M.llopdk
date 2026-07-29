@@ -243,6 +243,14 @@ const SEED = [
   params:{"Opening Range":{bars:2, mode:'פייד (נגד)', zone:10, buf:2}},
   notes:'📷 הוזן מצילומי הגדרות חיים — ProfitBot Full + ALPHA v4.6.1 · צ׳ארט 6E · 15m · שעות Asia/Jerusalem.\nמנוע: Opening Range במצב פייד (נגד) — נרות טווח 2, אזור 10 ticks, Buffer 2 ticks. עוגן SL/TP: סגירת נר האות. 🔄 היפוך עסקאות (שורט⇆לונג) פעיל.\nסיכון: 4 חוזים · סטופ 39 ticks · RR 0.45 (TP ~17.5t) · שער הפסד יומי $800 · שער רווח יומי $450 · מקס 4 עסקאות/יום.\nשעות: סשן 1 16:30–20:00 · סגירת פוזיציות 20:00 · סשן 2 כבוי.\nמגנים: אין כניסה 16 דק׳ לפני סגירה · צינון אחרי הפסד 0 נרות · שער תקציב-סיכון כבוי · תוויות כניסה על הצ׳ארט פעיל.\nמודולים נוספים בפאנל (דיפולט, לא בחריץ): DRIFT חלון 17:00–00:44 סף 20t "עם הדריפט"; MOM סף 30t "עם פריצה"; SMT מול CME_MINI:ES1! Pivot 3/2; Keltner EMA10/ATR10; PDH/PDL יום קודם נגיעה אזור 15t.\n⚠️ להשלים: טביעת אצבע מבקטסט (PnL/PF/עסקאות/WR/DD/טווח) + בדיקות אימות. לאמת כיוון סשן 1 (16:30→20:00) מול TradingView.',
   pnl:null, pf:null, n:null, wr:null, dd:null, range:'',
+  checks:{bm:false, p3:false, nb:false, mc:false, cs:false}, created:Date.now(), updated:Date.now()},
+ {id:'seedvwap6e', name:'6E — VWAP · סשן צהריים (ALPHA-VOL)', status:'test', ver:'v4.6.1', sym:'6E1!', tf:'15',
+  i1:'VWAP', i2:'NONE', i3:'NONE', eng:'🔓 ALPHA', anchor:'סגירת נר האות', maxd:30,
+  qty:4, stop:39, rr:0.46, ml:763, mp:500, mt:4, rev:true, revall:true,
+  s1:'1315-1630', s2:'', ct:'17:00',
+  params:{"VWAP":{src:'פתיחה', anc:'1 יום', mul:0.6, cm:false}},
+  notes:'📷 הוזן מצילומי הגדרות חיים — ProfitBot Full + ALPHA v4.6 · צ׳ארט 6E · 15m · שעות Asia/Jerusalem.\nמנוע: 🔓 ALPHA (לפי חריצים) + 🔁 היפוך בפוזיציה ALPHA-VOL פעיל. חריץ 1: VWAP — מקור פתיחה, עוגן 1 יום, StDev Mul 0.6, Close above/below כבוי. עוגן SL/TP: סגירת נר האות. 🔄 היפוך עסקאות (שורט⇆לונג) פעיל.\nסיכון: 4 חוזים · סטופ 39 ticks · RR 0.46 (TP ~18t) · שער הפסד יומי $763 · שער רווח יומי $500 · מקס 4 עסקאות/יום.\nשעות: סשן 1 13:15–16:30 · סגירת פוזיציות 17:00 · סשן 2 כבוי.\nמגנים: אין כניסה 30 דק׳ לפני סגירה · צינון אחרי הפסד 6 נרות · שער תקציב-סיכון כבוי · תוויות כניסה כבוי.\nTradersPost: Action לסגירה = exit · Ticker ריק (טיקר הצ׳ארט).\n⚠️ להשלים: טביעת אצבע מבקטסט (PnL/PF/עסקאות/WR/DD/טווח) + בדיקות אימות. לאמת כיוון סשן 1 (13:15→16:30) מול TradingView.',
+  pnl:null, pf:null, n:null, wr:null, dd:null, range:'',
   checks:{bm:false, p3:false, nb:false, mc:false, cs:false}, created:Date.now(), updated:Date.now()}
 ];
 
